@@ -11,6 +11,7 @@
 - Lưu trữ dữ liệu dưới dạng JSON
 
 ### Chức năng chính:
+
 - ✅ Quản lý CRUD (Create, Read, Update, Delete) cho người dùng
 - ✅ Tìm kiếm người dùng theo tên
 - ✅ Lọc người dùng theo độ tuổi
@@ -21,6 +22,7 @@
 ## 2. Hướng dẫn cài đặt
 
 ### Dependencies cần thiết:
+
 ```python
 # Built-in modules (không cần cài đặt thêm)
 import json
@@ -30,12 +32,14 @@ from typing import List, Dict, Optional
 ```
 
 ### Cài đặt:
+
 ```bash
 # Không cần cài đặt thêm dependencies
 # Chỉ cần Python 3.7+ với typing support
 ```
 
 ### Cấu trúc file:
+
 ```
 project/
 ├── user_manager.py          # Module chính
@@ -48,14 +52,17 @@ project/
 ### Class: `UserManager`
 
 #### Constructor
+
 ```python
 def __init__(self, data_file: str = "users.json") -> None
 ```
 
 **Tham số:**
+
 - `data_file` (str): Đường dẫn đến file JSON lưu trữ dữ liệu. Mặc định: "users.json"
 
 **Ví dụ:**
+
 ```python
 # Sử dụng file mặc định
 manager = UserManager()
@@ -71,14 +78,17 @@ manager = UserManager("my_users.json")
 Thêm người dùng mới vào hệ thống.
 
 **Tham số:**
+
 - `user_name` (str): Tên người dùng (bắt buộc)
 - `user_email` (str): Email người dùng (bắt buộc, phải unique)
 - `user_age` (int): Tuổi người dùng
 
 **Giá trị trả về:**
+
 - `bool`: True nếu thêm thành công, False nếu thất bại
 
 **Ví dụ:**
+
 ```python
 success = manager.add_user("Nguyễn Văn An", "an@example.com", 25)
 if success:
@@ -88,6 +98,7 @@ else:
 ```
 
 **Trường hợp ngoại lệ:**
+
 - Trả về False nếu tên hoặc email trống
 - Trả về False nếu email đã tồn tại
 
@@ -96,12 +107,15 @@ else:
 Lấy thông tin người dùng theo ID.
 
 **Tham số:**
+
 - `user_id` (int): ID của người dùng
 
 **Giá trị trả về:**
+
 - `Optional[Dict]`: Thông tin người dùng hoặc None nếu không tìm thấy
 
 **Ví dụ:**
+
 ```python
 user = manager.get_user_by_id(1)
 if user:
@@ -115,13 +129,16 @@ else:
 Lấy danh sách người dùng trong khoảng tuổi nhất định.
 
 **Tham số:**
+
 - `min_age` (int): Tuổi tối thiểu
 - `max_age` (int): Tuổi tối đa
 
 **Giá trị trả về:**
+
 - `List[Dict]`: Danh sách người dùng trong khoảng tuổi
 
 **Ví dụ:**
+
 ```python
 young_users = manager.get_users_by_age_range(18, 30)
 print(f"Có {len(young_users)} người dùng từ 18-30 tuổi")
@@ -132,13 +149,16 @@ print(f"Có {len(young_users)} người dùng từ 18-30 tuổi")
 Cập nhật trạng thái hoạt động của người dùng.
 
 **Tham số:**
+
 - `user_id` (int): ID của người dùng
 - `new_status` (bool): Trạng thái mới (True = hoạt động, False = không hoạt động)
 
 **Giá trị trả về:**
+
 - `bool`: True nếu cập nhật thành công, False nếu không tìm thấy người dùng
 
 **Ví dụ:**
+
 ```python
 # Vô hiệu hóa người dùng
 success = manager.update_user_status(1, False)
@@ -151,12 +171,15 @@ if success:
 Xóa người dùng khỏi hệ thống.
 
 **Tham số:**
+
 - `user_id` (int): ID của người dùng cần xóa
 
 **Giá trị trả về:**
+
 - `bool`: True nếu xóa thành công, False nếu không tìm thấy
 
 **Ví dụ:**
+
 ```python
 success = manager.delete_user(1)
 if success:
@@ -168,9 +191,11 @@ if success:
 Đếm số lượng người dùng đang hoạt động.
 
 **Giá trị trả về:**
+
 - `int`: Số lượng người dùng đang hoạt động
 
 **Ví dụ:**
+
 ```python
 active_count = manager.get_active_users_count()
 print(f"Có {active_count} người dùng đang hoạt động")
@@ -181,12 +206,15 @@ print(f"Có {active_count} người dùng đang hoạt động")
 Tìm kiếm người dùng theo tên (không phân biệt hoa thường).
 
 **Tham số:**
+
 - `search_term` (str): Từ khóa tìm kiếm
 
 **Giá trị trả về:**
+
 - `List[Dict]`: Danh sách người dùng khớp với từ khóa
 
 **Ví dụ:**
+
 ```python
 results = manager.search_users_by_name("Nguyễn")
 print(f"Tìm thấy {len(results)} người dùng có tên chứa 'Nguyễn'")
@@ -197,12 +225,15 @@ print(f"Tìm thấy {len(results)} người dùng có tên chứa 'Nguyễn'")
 Xuất danh sách người dùng ra file CSV.
 
 **Tham số:**
+
 - `output_file` (str): Tên file CSV xuất ra. Mặc định: "users_export.csv"
 
 **Giá trị trả về:**
+
 - `bool`: True nếu xuất thành công, False nếu có lỗi
 
 **Ví dụ:**
+
 ```python
 success = manager.export_users_to_csv("backup_users.csv")
 if success:
@@ -246,7 +277,7 @@ import datetime
 class EmployeeManager:
     def __init__(self):
         self.user_manager = UserManager("employees.json")
-    
+
     def add_employee(self, name, email, age, department):
         """Thêm nhân viên mới"""
         success = self.user_manager.add_user(name, email, age)
@@ -259,7 +290,7 @@ class EmployeeManager:
             user['hire_date'] = datetime.datetime.now().isoformat()
             self.user_manager.save_users()
         return success
-    
+
     def get_employees_by_department(self, department):
         """Lấy nhân viên theo phòng ban"""
         employees = []
@@ -267,17 +298,17 @@ class EmployeeManager:
             if user.get('department') == department:
                 employees.append(user)
         return employees
-    
+
     def generate_employee_report(self):
         """Tạo báo cáo nhân viên"""
         total = len(self.user_manager.users_list)
         active = self.user_manager.get_active_users_count()
-        
+
         print(f"=== BÁO CÁO NHÂN VIÊN ===")
         print(f"Tổng số nhân viên: {total}")
         print(f"Nhân viên đang hoạt động: {active}")
         print(f"Nhân viên không hoạt động: {total - active}")
-        
+
         # Xuất báo cáo ra CSV
         self.user_manager.export_users_to_csv("employee_report.csv")
 
@@ -300,26 +331,26 @@ def safe_add_user(manager, name, email, age):
         if not name or not email:
             print("Tên và email không được để trống!")
             return False
-        
+
         if age < 0 or age > 150:
             print("Tuổi không hợp lệ!")
             return False
-        
+
         # Kiểm tra email đã tồn tại
         for user in manager.users_list:
             if user['email'] == email:
                 print("Email đã tồn tại!")
                 return False
-        
+
         # Thêm người dùng
         success = manager.add_user(name, email, age)
         if success:
             print(f"Đã thêm người dùng: {name}")
         else:
             print("Thêm người dùng thất bại!")
-        
+
         return success
-        
+
     except Exception as e:
         print(f"Lỗi: {e}")
         return False
@@ -332,27 +363,31 @@ safe_add_user(manager, "Nguyễn Văn An", "an@example.com", 25)
 ## 5. Best Practices
 
 ### 5.1 Quản lý dữ liệu
+
 - **Backup định kỳ**: Luôn backup file JSON trước khi thực hiện thay đổi lớn
 - **Validation**: Kiểm tra dữ liệu đầu vào trước khi thêm/sửa
 - **Error handling**: Luôn xử lý exceptions khi làm việc với file
 
 ### 5.2 Performance
+
 - **Lazy loading**: Chỉ load dữ liệu khi cần thiết
 - **Batch operations**: Thực hiện nhiều thao tác cùng lúc để giảm I/O
 - **Indexing**: Sử dụng dictionary để tìm kiếm nhanh hơn
 
 ### 5.3 Security
+
 - **Input sanitization**: Làm sạch dữ liệu đầu vào
 - **File permissions**: Đặt quyền truy cập phù hợp cho file dữ liệu
 - **Data encryption**: Mã hóa dữ liệu nhạy cảm
 
 ### 5.4 Code organization
+
 ```python
 # Tốt: Tách biệt logic
 class UserService:
     def __init__(self):
         self.manager = UserManager()
-    
+
     def create_user(self, user_data):
         # Business logic here
         pass
@@ -368,6 +403,7 @@ def add_user_with_validation_and_email_sending(name, email, age):
 ### 6.1 Lỗi thường gặp
 
 #### Lỗi: "FileNotFoundError"
+
 ```python
 # Nguyên nhân: File JSON không tồn tại
 # Giải pháp: Module tự động tạo file mới
@@ -375,6 +411,7 @@ manager = UserManager("new_file.json")  # Sẽ tạo file mới
 ```
 
 #### Lỗi: "json.JSONDecodeError"
+
 ```python
 # Nguyên nhân: File JSON bị hỏng
 # Giải pháp: Backup và tạo lại file
@@ -384,6 +421,7 @@ shutil.copy("users.json", "users_backup.json")
 ```
 
 #### Lỗi: "Permission denied"
+
 ```python
 # Nguyên nhân: Không có quyền ghi file
 # Giải pháp: Kiểm tra quyền file
@@ -398,7 +436,7 @@ def debug_user_manager(manager):
     """Debug function để kiểm tra trạng thái"""
     print(f"Total users: {len(manager.users_list)}")
     print(f"Active users: {manager.get_active_users_count()}")
-    
+
     # Kiểm tra dữ liệu
     for i, user in enumerate(manager.users_list):
         print(f"User {i+1}: {user['name']} - {user['email']} - Active: {user['is_active']}")
@@ -419,13 +457,13 @@ class OptimizedUserManager(UserManager):
         self._email_index = {}
         self._name_index = {}
         self._build_indexes()
-    
+
     def _build_indexes(self):
         """Xây dựng index để tìm kiếm nhanh"""
         for user in self.users_list:
             self._email_index[user['email']] = user['id']
             self._name_index[user['name'].lower()] = user['id']
-    
+
     def get_user_by_email(self, email):
         """Tìm kiếm theo email - O(1)"""
         user_id = self._email_index.get(email)
@@ -455,17 +493,20 @@ def recover_from_backup(backup_file="users_backup.json"):
 UserManager module cung cấp một giải pháp đơn giản và hiệu quả để quản lý dữ liệu người dùng. Với API đơn giản và dễ sử dụng, module này phù hợp cho các ứng dụng nhỏ đến trung bình.
 
 **Ưu điểm:**
+
 - API đơn giản, dễ sử dụng
 - Không cần database phức tạp
 - Hỗ trợ đầy đủ CRUD operations
 - Có thể mở rộng dễ dàng
 
 **Hạn chế:**
+
 - Không phù hợp với dữ liệu lớn
 - Không có transaction support
 - Thiếu các tính năng advanced như pagination, sorting
 
 **Khuyến nghị:**
+
 - Sử dụng cho prototype hoặc ứng dụng nhỏ
 - Cân nhắc chuyển sang database thực sự khi dữ liệu lớn
 - Luôn backup dữ liệu quan trọng
